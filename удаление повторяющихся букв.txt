@@ -1,0 +1,19 @@
+import re
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    match = re.search(r"(\w)\1", line)
+    while match:
+        line = re.sub(r"(\w)\1", r"\1", line)
+        match = re.search(r"(\w)\1", line)
+    print(line)
+
+# Альтернативное решение
+import re
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    line = re.sub(r"(\w)\1+", r"\1", line)
+    print(line)
