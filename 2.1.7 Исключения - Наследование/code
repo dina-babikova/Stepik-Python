@@ -1,0 +1,27 @@
+def poisk(dict, x, massiv):  # функция для поиска предков исключения в массиве 
+    if x in dict.keys():
+        for y in dict[x]:
+            if y in massiv:
+                return True
+                break
+            elif poisk(dict, y, massiv):
+                return True
+    
+def add_ex(dict, string): # функция для добавления исключений и их предков в словарь
+    s = string.split()
+    dict[s[0]] = (s[2:] if len(s) > 1 else [])
+    
+structure = {} # словарь, в котором хранится наследование исключений
+n = int(input())
+for i in range(n):
+    s = input()
+    add_ex(structure, s)
+m = int(input())
+exceptions = [] # массив, в котором хранятся исключения, которые нужно ловить
+for i in range(m):
+    ex = input()
+    if poisk(structure, ex, exceptions):
+        print(ex)
+    else:
+        exceptions += [ex]
+        
