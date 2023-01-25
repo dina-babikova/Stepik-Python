@@ -1,0 +1,41 @@
+scopes = {'global': {'parent': None, 'variables': set()}} #создаем словарь для хранения пространства имен, первая запись сответствует неймспейсу global
+
+# Функция для создания нового неймспейса
+def create(namespace, parent):
+    scopes[namespace] = {'parent': parent, 'variables': set()}
+    
+# Добавление переменных в неймспейс
+def add(namespace, var):
+    scopes[namespace]['variables'].add(var)
+    
+# Из какого неймспейса будет взята переменная
+def get(namespace,var):
+    out = ''
+    parent = ''
+    while parent != None: # двигаемся вверх по дереву до неймспейса global
+        parent = scopes[namespace]['parent']
+        if var in scopes[namespace]['variables']:
+            out = namespace
+            break
+        else:
+            namespace = parent
+    if out == '' and parent == None: # если добрались до global и не нашли переменную
+        out = None
+    print(out)
+    
+n = int(input())
+for i in range(n):
+    command, namespace, arg = input().split()
+    if command == 'create':
+        create(namespace, arg)
+    elif command == 'add':
+        add(namespace, arg)
+    elif command == 'get':
+        get (namespace, arg)
+        
+            
+                    
+        
+
+
+
