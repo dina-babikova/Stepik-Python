@@ -1,0 +1,26 @@
+from xml.etree import ElementTree
+
+# print(help(ElementTree))
+red, green, blue = 0, 0, 0
+root = ElementTree.fromstring(input())
+
+
+def add_value(val, color):
+    global red, green, blue
+    if color == "red":
+        red += val
+    elif color == "green":
+        green += val
+    elif color == "blue":
+        blue += val
+
+
+def getChildren(root1, level=0):
+    level += 1
+    add_value(level, root1.get('color'))
+    for child in root1:
+        getChildren(child, level)
+
+
+getChildren(root)
+print(red, green, blue)
