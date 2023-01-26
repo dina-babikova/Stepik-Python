@@ -1,0 +1,8 @@
+import re
+import sys
+
+for line in sys.stdin:
+    line = line.strip()
+    line = re.sub(r"(\w)\1+", r"\1", line)
+    print(line)
+    
