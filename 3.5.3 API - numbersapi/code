@@ -1,0 +1,12 @@
+# web API
+import requests
+import sys
+
+for number in sys.stdin:
+    api_url = f'http://numbersapi.com/{number.rstrip()}/math?json=true'
+    res = requests.get(api_url)
+    fact = res.json()
+    if fact['found']:
+        print("Interesting")
+    else:
+        print("Boring")
