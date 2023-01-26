@@ -1,0 +1,12 @@
+import os
+
+os.chdir(r"C:\Users\Desktop\дина\Stepik Python Основы и применение\Файлы\main") # меняю текущую директорию
+papki = [] # список для директорий, содержащих .py файлы
+for current_dir, dirs, files in os.walk("."):
+    for file in files:
+        if file[-3:] == ".py":
+            papki.append(current_dir[2:].replace("\\","/"))
+            break
+            
+with open("result.txt", "w") as w:
+    w.write("\n".join(sorted(papki)))
