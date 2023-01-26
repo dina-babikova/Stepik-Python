@@ -1,0 +1,17 @@
+# Для парсинга html файлов обычно используется библиотека BeautifulSoup, но в курсе данная библиотека не использовалась, поэтому решение через регулярку
+import requests
+import re 
+
+a = input().strip() 
+b = input().strip()
+A = requests.get(a).text # получаем текст документа а
+pattern = r"<a href=\"(.*)\">" # шаблон для ссылки на второй документ
+dva_perehoda = False
+for line in A.split('\n'):
+    match = re.match(pattern, line)
+    if match:
+        C = requests.get(match.group(1))
+        if b in C.text:
+            dva_perehoda = True
+            break
+print("Yes" if dva_perehoda else "No")
