@@ -1,0 +1,18 @@
+import csv
+
+with open("Crimes.csv") as fi:
+    reader = csv.reader(fi)
+    next(reader) # пропускаем заголовок
+    crime_cnt = dict() # в словаре будем хранить информацию о количестве преступлений каждого типа
+    for row in reader:
+        year = row[2][6:10]
+        if year == "2015":
+            crime_type = row[5]
+            if crime_type not in crime_cnt:
+                crime_cnt[crime_type] = 0
+            crime_cnt[crime_type] += 1
+
+a = list(map(lambda x: (crime_cnt[x], x), crime_cnt)) # для всего словаря формируем список из кортежей "кол-во преступлений", "тип"
+a.sort(key=lambda x: -x[0])
+
+print(a[0][1])
